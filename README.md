@@ -71,5 +71,3 @@ MIT License
 
 ---
 
-
-*This is a cloned and enhanced version with AI password assistance and theme toggle functionality.*
