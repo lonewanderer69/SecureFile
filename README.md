@@ -1,11 +1,11 @@
-# hat.sh - Secure File Encryption in Browser with AI Password Assistant
+# Project Skripsi
 
-[hat.sh](https://hat.sh) is a client-side, browser-based file encryption and decryption tool. It uses modern cryptography to securely encrypt files locally without uploading them to any server.
+SecureFile(https://securefiles.my.id) is a client-side, browser-based file encryption and decryption tool. It uses modern cryptography to securely encrypt files locally without uploading them to any server.
 
 ## Features
 
 - Encrypt and decrypt files securely in your browser.
-- Client-side encryption using AES-GCM with PBKDF2 key derivation.
+- Client-side encryption using AES-256-GCM with PBKDF2 key derivation.
 - AI-powered Password Assistant:
   - Suggests strong, random passwords.
   - Evaluates password strength in real-time.
@@ -71,8 +71,5 @@ MIT License
 
 ---
 
-For more information, visit the [hat.sh GitHub repository](https://github.com/sh-dv/hat.sh).
-
----
 
 *This is a cloned and enhanced version with AI password assistance and theme toggle functionality.*
