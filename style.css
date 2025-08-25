@@ -1,0 +1,177 @@
+/* Custom styles */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.tab-btn {
+    color: #6B7280;
+    border-bottom-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: #1F2937;
+    border-bottom-color: #2563EB;
+}
+
+/* Dark theme tab styles */
+.dark .tab-btn {
+    color: #9CA3AF;
+}
+
+.dark .tab-btn.active {
+    color: #F9FAFB;
+    border-bottom-color: #3B82F6;
+}
+
+.tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Strength meter and feedback */
+#strength-meter {
+    transition: all 0.3s ease;
+}
+
+#strength-feedback {
+    min-height: 20px;
+    transition: opacity 0.3s ease;
+}
+
+/* Toast animation */
+#toast {
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+#toast.show {
+    transform: translateY(0);
+}
+
+/* File drop zone */
+.drop-active {
+    border-color: #2563EB !important;
+    background-color: #EFF6FF;
+    transition: all 0.3s ease;
+}
+
+.dark .drop-active {
+    background-color: #1E3A8A;
+    border-color: #3B82F6 !important;
+}
+
+/* Password input and button */
+#password {
+    transition: all 0.2s ease;
+}
+
+#suggest-password {
+    transition: all 0.2s ease;
+}
+
+#suggest-password:hover {
+    background-color: #F3F4F6;
+}
+
+.dark #suggest-password:hover {
+    background-color: #374151;
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    transition: all 0.2s ease;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+/* Dark theme specific styles */
+.dark {
+    color-scheme: dark;
+}
+
+/* Scrollbar styling for dark theme */
+.dark ::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #374151;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #6B7280;
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+}
+
+/* Focus styles for dark theme */
+.dark input:focus {
+    ring-color: #3B82F6;
+    border-color: #3B82F6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .tab-btn {
+        font-size: 14px;
+        padding: 12px 8px;
+    }
+    
+    #theme-toggle {
+        padding: 8px;
+    }
+    
+    #theme-toggle i {
+        font-size: 16px;
+    }
+}
+
+/* Animation for theme transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Ensure smooth transitions for all theme-related changes */
+body, nav, main, div, button, input, label, span, p, ul, li {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Additional dark theme improvements */
+.dark .shadow {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dark .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.dark .shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Improve contrast for better accessibility */
+.dark .text-gray-400 {
+    color: #D1D5DB;
+}
+
+.dark .text-gray-500 {
+    color: #9CA3AF;
+}
+
+.dark .text-gray-600 {
+    color: #6B7280;
+}

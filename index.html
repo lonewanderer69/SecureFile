@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure File Encryption</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white dark:bg-gray-800 shadow-sm transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">SecureFile</h1>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <button 
+                            id="theme-toggle" 
+                            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+                            aria-label="Toggle theme"
+                        >
+                            <i id="theme-icon" class="fas fa-moon text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <!-- Tabs -->
+            <div class="mb-8">
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav class="-mb-px flex" aria-label="Tabs">
+                        <button class="tab-btn active w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm" data-tab="encrypt">
+                            Encrypt File
+                        </button>
+                        <button class="tab-btn w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm" data-tab="decrypt">
+                            Decrypt File
+                        </button>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Encrypt Section -->
+            <div id="encrypt-section" class="tab-content active">
+                <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 transition-colors duration-300">
+                    <!-- File Drop Zone -->
+                    <div class="mb-8">
+                        <div id="drop-zone" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
+                            <div class="space-y-1 text-center">
+                                <i class="fas fa-file-upload text-4xl text-gray-400 dark:text-gray-500"></i>
+                                <div class="flex text-sm text-gray-600 dark:text-gray-400">
+                                    <label for="file-upload" class="relative cursor-pointer rounded-md font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
+                                        <span>Upload a file</span>
+                                        <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Any file up to 100MB</p>
+                            </div>
+                        </div>
+
+                        <!-- File Preview -->
+                        <div id="file-preview" class="hidden mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <i id="file-icon" class="fas fa-file text-2xl text-blue-500"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p id="file-name" class="text-sm font-medium text-gray-900 dark:text-white truncate"></p>
+                                        <p id="file-size" class="text-sm text-gray-500 dark:text-gray-400"></p>
+                                    </div>
+                                </div>
+                                <button id="remove-file" class="flex-shrink-0 p-1 text-gray-400 hover:text-red-500 transition-colors">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Section with AI Assistant -->
+                    <div class="mb-8">
+                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Encryption Password</label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password"
+                                autocomplete="new-password"
+                                class="block w-full pr-24 sm:text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" 
+                                placeholder="Enter a strong password">
+                            <div class="flex items-center space-x-2">
+                                
+    <div class="password-suggestions"><button 
+        id="suggest-password" 
+        class="mt-2 px-3 py-1 bg-blue-100 dark:bg-blue-900 rounded-md transition-colors"
+    >
+        <i class="fas fa-wand-magic-sparkles"></i>
+        <span class="ml-1">Suggest Password</span>
+    </button>
+    <button 
+        id="suggest-passphrase" 
+        class="px-3 py-1 bg-green-100 dark:bg-green-900 rounded-md transition-colors"
+    >
+        <i class="fas fa-hat-wizard"></i>
+        <span class="ml-1">Suggest Passphrase</span>
+    </button></div>
+</div>
+                        </div>
+
+                        <!-- Password Strength Meter -->
+                        <div class="mt-4">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Password Strength:</span>
+                                <span id="strength-text" class="text-sm font-medium text-gray-900 dark:text-white">None</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
+                                <div id="strength-meter" class="h-2.5 rounded-full transition-all duration-300" style="width: 0%; background-color: #E5E7EB"></div>
+                            </div>
+                            <p id="strength-feedback" class="mt-2 text-sm text-gray-600 dark:text-gray-400 min-h-[20px]"></p>
+                        </div>
+
+                        <!-- Password Requirements -->
+                        <div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                            <p>Password requirements:</p>
+                            <ul class="list-disc pl-5 mt-1">
+                                <li>Minimum 8 characters</li>
+                                <li>At least one uppercase letter</li>
+                                <li>At least one number</li>
+                                <li>At least one special character</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Encrypt Button -->
+                    <div class="mt-8">
+                        <button id="encrypt-btn" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800">
+                            Encrypt File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decrypt Section -->
+            <div id="decrypt-section" class="tab-content hidden">
+                <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 transition-colors duration-300">
+                    <!-- File Drop Zone -->
+                    <div class="mb-8">
+                        <div id="decrypt-drop-zone" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
+                            <div class="space-y-1 text-center">
+                                <i class="fas fa-file-upload text-4xl text-gray-400 dark:text-gray-500"></i>
+                                <div class="flex text-sm text-gray-600 dark:text-gray-400">
+                                    <label for="decrypt-file-upload" class="relative cursor-pointer rounded-md font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300">
+                                        <span>Upload encrypted file</span>
+                                        <input id="decrypt-file-upload" name="decrypt-file-upload" type="file" class="sr-only">
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Preview -->
+                        <div id="decrypt-file-preview" class="hidden mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <i id="decrypt-file-icon" class="fas fa-file-lock text-2xl text-green-500"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p id="decrypt-file-name" class="text-sm font-medium text-gray-900 dark:text-white truncate"></p>
+                                        <p id="decrypt-file-size" class="text-sm text-gray-500 dark:text-gray-400"></p>
+                                    </div>
+                                </div>
+                                <button id="remove-decrypt-file" class="flex-shrink-0 p-1 text-gray-400 hover:text-red-500 transition-colors">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Decryption Password -->
+                    <div class="mb-8">
+                        <label for="decrypt-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Decryption Password</label>
+                        <div class="mt-1">
+                            <input type="password" id="decrypt-password" class="block w-full sm:text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" placeholder="Enter the decryption password">
+                        </div>
+                    </div>
+
+                    <!-- Decrypt Button -->
+                    <div class="mt-8">
+                        <button id="decrypt-btn" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800">
+                            Decrypt File
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="fixed bottom-4 right-4 transform transition-transform duration-300 translate-y-full">
+        <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 max-w-sm transition-colors duration-300">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <i id="toast-icon" class="fas fa-info-circle text-blue-500"></i>
+                </div>
+                <div class="ml-3">
+                    <p id="toast-message" class="text-sm font-medium text-gray-900 dark:text-white"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="password-ai.js"></script>
+    <script src="app.js"></script>
+    <script src="encrypt.js"></script>
+    <script src="decrypt.js"></script>
+</body>
+</html>
